@@ -9,19 +9,19 @@
           
           <div class="col-xs-6 col-centered">
            
-            
-            <form role="form" action="/giris" method="POST">
+              <form method="POST" action="/giris">
               <div class="form-group">
                 <label for="exampleInputEmail1">Kullanıcı Adınız?</label>
-                <input type="text" class="form-control" id="username" placeholder="Kullanıcı Adı">
+                <input type="text" class="form-control" name="username" placeholder="Kullanıcı Adı">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Şifreniz?</label>
-                <input type="password" class="form-control " id="parola" placeholder="Şifre">
+                <input type="password" class="form-control " name="parola" placeholder="Şifre">
               </div>
               <button type="submit" class="btn btn-info">Giriş Yap</button>
-            </form>
- 
+            </form> 
+        
+          
           </div>
 
           

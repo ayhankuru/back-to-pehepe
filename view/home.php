@@ -2,7 +2,7 @@
     <div class="container">
       <div class="header">
         <?php include "menu.php"; ?>
-        <h3 class="text-muted"><?php echo $title; ?></h3>
+        <h3 class="text-muted"><b> Haber Box </b></h3>
       </div>
 
       <div class="jumbotron">
