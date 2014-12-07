@@ -25,14 +25,25 @@ $foxy->Route("/", function() use ($foxy,$temp){
 
 });
 
-$foxy->Route("/hello", function(){
+$foxy->Route("/login", function() use ($foxy,$temp){ 
 
-     $temp->render("view/home.php");
+    $temp->variables = array("title" => "HaberBox - Giriş Yap"); 
+    $temp->render(function() use($foxy,$temp){
+        
+        include "view/login.php";
+
+    });
+    
 });
 
-$foxy->Route("/hello/{name}", function() use ($foxy,$temp){
+$foxy->Route("/giris", function() use ($foxy,$temp){
 
-    echo $foxy->Get('name');
+    $temp->variables = array("title" => "HaberBox - Giriş Yap"); 
+    $temp->render(function() use($foxy,$temp){
+        
+        include "view/giris.php";
+
+    });
     
 });
 

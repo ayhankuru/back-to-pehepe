@@ -1,14 +1,7 @@
 
     <div class="container">
       <div class="header">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="#">Anasayfa</a></li>
-            <li role="presentation"><a href="#">Kategoriler</a></li>
-            <li role="presentation"><a href="#">Haber Ekle</a></li>
-            <li role="presentation"><a href="#">İletişim</a></li>
-          </ul>
-        </nav>
+        <?php include "menu.php"; ?>
         <h3 class="text-muted"><?php echo $title; ?></h3>
       </div>
 
