@@ -1,4 +1,9 @@
 <?php
+/*
+*
+* matthisstenius
+* https://github.com/matthisstenius/Router
+*/
 
 class Router {
 	/**

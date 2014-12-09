@@ -1,15 +1,13 @@
-		<nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="/">Anasayfa</a></li>
-            <li role="presentation"><a href="#">Kategoriler</a></li>
+ <ul class="nav navbar-nav">
+         
+            <li><a href="/">Anasayfa</a></li>
+            <li><a href="/kategoriler">Kategoriler</a></li>
             <?php if(!isset($_SESSION['username'])){ ?>
-            <li role="presentation"><a href="/login">Giriş Yap</a></li>
+            <li><a href="/login">Giriş Yap</a></li>
             <?php } 
-
                 if(isset($_SESSION['username'])){ ?>
-            <li role="presentation"><a href="#">Haber Ekle</a></li>
-            <li role="presentation"><a href="#">Kategori Ekle</a></li>
-            <li role="presentation"><a href="/logout">Çıkış Yap</a></li>
+            <li><a href="/ekle/haber">Haber Ekle</a></li>
+            <li><a href="/ekle/kategori">Kategori Ekle</a></li>
+            <li><a href="/logout">Çıkış Yap</a></li>
             <?php  } ?>
-          </ul>
-        </nav>
+</ul>

@@ -1,5 +1,8 @@
-      <footer class="footer">
-        <p>&copy; Haber Box 2014</p>
-      </footer>
 
-    </div> <!-- /container -->
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </footer>
+  

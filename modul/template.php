@@ -11,6 +11,7 @@ class Template {
 	private $cache_header;
 	private $cache_footer; 
 	public $variables;
+	private $uriarray;
 	
 	public function __construct($header_path,$footer_path){
 		if(!$header_path && !$footer_path){
@@ -22,8 +23,12 @@ class Template {
 		}
 	}
 
-	private function ren_header(){
+	public function  uri($uri){
+		$this->uriarray = array("uri" => $uri);
 
+	}
+	private function ren_header(){
+		$this->variables = array_merge($this->variables,$this->uriarray);
 		if($this->cache_header){
 			 $content = file_get_contents($this->cache_header); 
 

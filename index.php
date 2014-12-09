@@ -3,22 +3,84 @@
 require_once "modul/db.php";
 require_once "modul/router.php";
 require_once "modul/template.php";
-
+define("uri", "http://localhost");
 
 $router = new Router();
 
 $temp = new Template("view/header.php","view/footer.php");
+$temp->uri(uri);
+
 session_start();
 
 
 $router->get('/', function() use ($temp){ 
-    $temp->variables = array("title" => "bla bla bla"); 
+    $temp->variables = array("title" => "HaberBox"); 
     $temp->render(function() use($temp){ 
            
           include "view/home.php";
   
       });
 });
+
+
+$router->get('/kategoriler', function() use ($temp){ 
+    $temp->variables = array("title" => "HaberBox - Kategoriler"); 
+    $temp->render(function() use($temp){ 
+           
+          include "view/kategoriler.php";
+  
+      });
+});
+
+ 
+ 
+
+$router->get('/ekle/:komut', function($komut) use ($temp){ 
+    
+      switch ($komut) {
+        case 'haber':
+               $temp->variables = array("title" => "HaberBox - Haber Ekle"); 
+               $temp->render(function() use($temp){ 
+                       
+                      if($_SESSION['username']){
+                        include "view/hab_ekle.php";  
+                      }else{
+                         header('Location: /login');
+                      }
+                      
+              
+                  });
+          break;
+        case 'kategori':
+            
+            $temp->variables = array("title" => "HaberBox - Kategori Ekle"); 
+             $temp->render(function() use($temp){ 
+               
+              if($_SESSION['username']){
+                include "view/kat_ekle.php";  
+              }else{
+                 header('Location: /login');
+              }
+              
+      
+            });
+
+          break;
+        default:
+          $temp->variables = array("title" => "404"); 
+             $temp->render(function() use($temp){  
+                include "view/404.php";  
+             
+      
+            });
+          break;
+      }
+
+
+
+});
+
+
 
 $router->get('/login', function() use ($temp){ 
 
@@ -49,12 +111,44 @@ $router->post('/giris', function() use ($pdo){
         }
 });
 
+$router->post('/ekle/:komut',function($komut) use ($pdo){
+      switch ($komut) {
+        case 'haber':
+          header('Location: / ');
+          break; 
+         case 'kategori':
+          if($_POST['kat_baslik'] || $_POST['kat_aciklama']){
+              $baslik =$_POST['kat_baslik'] ;
+              $aciklama =$_POST['kat_aciklama']; 
+              $query = $pdo->prepare("INSERT INTO kategori(baslik,aciklama) VALUES(?,?) ");
+              $insert = $query->execute(array(
+                   $baslik , $aciklama
+              ));
+              if($insert){
+                header('Location: /kategoriler ');
+              }else{
+                header('Location: /ekle/kategori');    
+              }
+
+          }else{
+            header('Location: /ekle/kategori ');
+          }
+          
+          break; 
+        default:
+          header('Location: / ');
+          break;
+      }
+});
+
 $router->get('/logout', function(){ 
     session_destroy();
     header('Location: / ');
 });
 
 
+
+ 
 
 //$foxy->Route("/haber/ekle", function() use ($foxy,$temp){
 //
