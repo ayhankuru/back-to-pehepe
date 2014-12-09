@@ -1,9 +1,9 @@
 <?php 
 
+require_once "modul/config.php";
 require_once "modul/db.php";
 require_once "modul/router.php";
 require_once "modul/template.php";
-define("uri", "http://localhost");
 
 $router = new Router();
 
@@ -146,7 +146,14 @@ $router->get('/logout', function(){
     header('Location: / ');
 });
 
+$router->notFound('/hata', function(){ 
+    echo "hata";
+});
 
+
+$router->post('/bla/bla', function(){ 
+    print_r($_POST);
+});
 
  
 
