@@ -56,53 +56,38 @@
       
       <div class="row">
         
-        <div class="col-lg-4"> 
-                    <h3 class="text-center"><a href="#">Subheading</a></h4>
-                     <img src="<?php echo uri; ?>/public/upload/10649817_10204311162476317_5313655160896017934_n.jpg" alt="..." class="img-rounded cover">
-                     <p class="lead">Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                     <p><mark><a href="#">highlight</a></mark>,<mark><a href="#">highlight</a></mark>,<mark><a href="#">highlight</a></mark></p>
-                  
-        </div>
         
-         <div class="col-lg-4"> 
-                    <h3 class="text-center"><a href="#">Subheading</a></h4>
-                     <img src="<?php echo uri; ?>/public/upload/10649817_10204311162476317_5313655160896017934_n.jpg" alt="..." class="img-rounded cover">
-                     <p class="lead">Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                     <p><mark><a href="#">highlight</a></mark>,<mark><a href="#">highlight</a></mark>,<mark><a href="#">highlight</a></mark></p>
-                  
-        </div>
+        
+        <?php 
 
-         <div class="col-lg-4"> 
-                    <h3 class="text-center"><a href="#">Subheading</a></h4>
-                     <img src="<?php echo uri; ?>/public/upload/10649817_10204311162476317_5313655160896017934_n.jpg" alt="..." class="img-rounded cover">
-                     <p class="lead">Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                     <p><mark><a href="#">highlight</a></mark>,<mark><a href="#">highlight</a></mark>,<mark><a href="#">highlight</a></mark></p>
-                  
-        </div>
+        $query = $pdo->query("SELECT haber.*,fotograf.foto_dizin,tag.content tcontent FROM haber INNER JOIN fotograf ON haber.foto_id = fotograf.id INNER JOIN tag ON haber.tag_id = tag.id ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
         
-        <div class="col-lg-4"> 
-                    <h3 class="text-center"><a href="#">Subheading</a></h4>
-                     <img src="<?php echo uri; ?>/public/upload/10649817_10204311162476317_5313655160896017934_n.jpg" alt="..." class="img-rounded cover">
-                     <p class="lead">Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                     <p><mark><a href="#">highlight</a></mark>,<mark><a href="#">highlight</a></mark>,<mark><a href="#">highlight</a></mark></p>
-                  
-        </div>
-        
-         <div class="col-lg-4"> 
-                    <h3 class="text-center"><a href="#">Subheading</a></h4>
-                     <img src="<?php echo uri; ?>/public/upload/10649817_10204311162476317_5313655160896017934_n.jpg" alt="..." class="img-rounded cover">
-                     <p class="lead">Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                     <p><mark><a href="#">highlight</a></mark>,<mark><a href="#">highlight</a></mark>,<mark><a href="#">highlight</a></mark></p>
-                  
-        </div>
+          if($query || count($query) > 0 ){
+             for ($i=0; $i < count($query) ; $i++) { 
+        ?>
+            <div class="col-lg-4"> 
+                    <h3 class="text-center"><a href="#"><?php echo substr($query[$i]['baslik'], 0, 15).'...'; ?></a></h4>
+                     <img src="<?php echo uri; ?><?php  echo $query[$i]['foto_dizin']; ?>" alt="..." class="img-rounded cover">
+                     <p class="lead"><?php  echo substr($query[$i]['content'], 0, 200).'...'; ?></p>
+                     <p><?php  
+                     $tags =explode(',', $query[$i]['tcontent']);
+                      foreach ($tags  as $key => $value) {
+                        ?>
+                          <mark><a href="#"><?php  echo $value; ?></a></mark>
+                        <?php 
+                      }
 
-         <div class="col-lg-4"> 
-                    <h3 class="text-center"><a href="#">Subheading</a></h4>
-                     <img src="<?php echo uri; ?>/public/upload/10649817_10204311162476317_5313655160896017934_n.jpg" alt="..." class="img-rounded cover">
-                     <p class="lead">Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                     <p><mark><a href="#">highlight</a></mark>,<mark><a href="#">highlight</a></mark>,<mark><a href="#">highlight</a></mark></p>
+                      ?>
+                     </p>
                   
-        </div>
+           </div>
+
+
+        <?php }
+
+        }else { ?>
+          <div class="alert alert-danger" role="alert">Hiç Haber Eklenmemiş</div>
+        <?php } ?>
       </div>
 
     </div>
