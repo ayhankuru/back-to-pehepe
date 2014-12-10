@@ -45,8 +45,8 @@ $router->get('/kategoriler', function() use ($temp,$pdo){
 $router->post('/kategori/edit', function() use ($temp,$pdo){
     if($_SESSION['username']){ 
       if($_POST['kat_baslik'] || $_POST['kat_aciklama'] || $_POST['id'] ){ 
-              $baslik =$_POST['kat_baslik'];
-              $aciklama = $_POST['kat_aciklama'];
+              $baslik =htmlspecialchars($_POST['kat_baslik']);
+              $aciklama = htmlspecialchars($_POST['kat_aciklama']);
               $id =$_POST['id'];
               $query = $pdo->prepare("UPDATE kategori SET baslik = ? , aciklama = ?  WHERE id = ?");
               $update = $query->execute(array($baslik,$aciklama,$id));
@@ -147,8 +147,8 @@ $router->get('/login', function() use ($temp){
 
 $router->post('/giris', function() use ($pdo){
     if($_POST['username'] || $_POST['parola'] ){ 
-              $kullanici_adi =$_POST['username'] ;
-              $password =md5($_POST['parola']);
+              $kullanici_adi =htmlspecialchars($_POST['username']);
+              $password =md5(htmlspecialchars($_POST['parola']));
               $query = $pdo->query("SELECT id,username FROM user WHERE username = '{$kullanici_adi}' and password ='{$password}' ")->fetch(PDO::FETCH_ASSOC);
               if($query){
                 $_SESSION['id'] = $query["id"];
@@ -170,7 +170,7 @@ $router->post('/ekle/:komut',function($komut) use ($pdo){
             if($_POST['tag'] || $_FILES['cover'] || $_POST['baslik'] || $_POST['content'] || $_POST['kat']){
                   
                   // Tag variables
-                  $tag_content=$_POST['tag'];
+                  $tag_content=htmlspecialchars($_POST['tag']);
 
 
                   $tag_query = $pdo->prepare("INSERT INTO tag(content) VALUES(?) ");
@@ -194,8 +194,8 @@ $router->post('/ekle/:komut',function($komut) use ($pdo){
 
                   // Haber variables
 
-                  $haber_baslik =$_POST['baslik'];
-                  $haber_content =$_POST['content'];
+                  $haber_baslik =htmlspecialchars($_POST['baslik']);
+                  $haber_content =htmlspecialchars($_POST['content']);
 
                   $haber_query = $pdo->prepare("INSERT INTO haber(baslik,content,foto_id,tag_id) VALUES(?,?,?,?) ");
 
@@ -204,7 +204,7 @@ $router->post('/ekle/:komut',function($komut) use ($pdo){
 
                   // Kategori variables
 
-                  $kat_id = $_POST['kat'];
+                  $kat_id = htmlspecialchars($_POST['kat']);
 
                   $kat_query = $pdo->prepare("INSERT INTO haber_kat(haber_id,kat_id) VALUES(?,?) ");
 
@@ -217,8 +217,8 @@ $router->post('/ekle/:komut',function($komut) use ($pdo){
             break; 
            case 'kategori':
             if($_POST['kat_baslik'] || $_POST['kat_aciklama']){
-                $baslik =$_POST['kat_baslik'] ;
-                $aciklama =$_POST['kat_aciklama']; 
+                $baslik =htmlspecialchars($_POST['kat_baslik']);
+                $aciklama =htmlspecialchars($_POST['kat_aciklama']); 
                 $query = $pdo->prepare("INSERT INTO kategori(baslik,aciklama) VALUES(?,?) ");
                 $insert = $query->execute(array(
                      $baslik , $aciklama
