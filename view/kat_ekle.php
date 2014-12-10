@@ -26,7 +26,7 @@
                   $(function(){$('textarea#contentx').focus(function() { $(this).val(''); });  });
                   </script>
                  
-              <button type="submit" class="btn btn-primary btn-lg">Haberi Ekle</button>
+              <button type="submit" class="btn btn-primary btn-lg">Kategori Ekle</button>
             </form> 
             
           
