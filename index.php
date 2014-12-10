@@ -26,7 +26,7 @@ $router->get('/haber/kat/:kat', function($kat) use ($temp,$pdo){
     $temp->variables = array("title" => "HaberBox"); 
     $temp->render(function() use($temp,$kat,$pdo){ 
            
-          echo $kat;
+          include "view/haber_kat.php";
   
       });
 });
