@@ -20,7 +20,7 @@ define("upload_dir", './public/upload/');
 
  **Kullanıcı adı:admin && şifre:1234**
 
-[Demo Görüntülemek İçin](http://cobaimelan.koding.io/)
+[Demo Görüntülemek İçin](https://pehepe-cobaimelan-1.c9.io/)
 
 ### Yapılacaklar
 - Haber Listeleme
