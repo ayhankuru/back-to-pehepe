@@ -30,8 +30,11 @@
                     <input type="text" class="form-control" name="kat_baslik" placeholder="Kategori Başlığı">
                   </div>
                   <div class="form-group">  
-                  <textarea name="kat_aciklama" id="" cols="30" rows="10" class="form-control">Kategori Açıklama</textarea>
+                  <textarea name="kat_aciklama" id="contentx" cols="30" rows="10" class="form-control">Kategori Açıklama</textarea>
                   </div>
+                   <script>
+                  $(function(){$('textarea#contentx').focus(function() { $(this).val(''); });  });
+                  </script>
                  
               <button type="submit" class="btn btn-primary btn-lg">Haberi Ekle</button>
             </form> 

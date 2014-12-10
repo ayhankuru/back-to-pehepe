@@ -23,9 +23,9 @@ $router->get('/', function() use ($temp){
 });
 
 
-$router->get('/kategoriler', function() use ($temp){ 
+$router->get('/kategoriler', function() use ($temp,$pdo){ 
     $temp->variables = array("title" => "HaberBox - Kategoriler"); 
-    $temp->render(function() use($temp){ 
+    $temp->render(function() use($temp,$pdo){ 
            
           include "view/kategoriler.php";
   
@@ -35,47 +35,42 @@ $router->get('/kategoriler', function() use ($temp){
  
  
 
-$router->get('/ekle/:komut', function($komut) use ($temp){ 
-    
-      switch ($komut) {
-        case 'haber':
-               $temp->variables = array("title" => "HaberBox - Haber Ekle"); 
+$router->get('/ekle/:komut', function($komut) use ($temp,$pdo){ 
+      if($_SESSION['username']){
+        switch ($komut) {
+          case 'haber':
+                 $temp->variables = array("title" => "HaberBox - Haber Ekle"); 
+                 $temp->render(function() use($temp,$pdo){  
+                          include "view/hab_ekle.php";   
+                
+                    });
+            break;
+          case 'kategori':
+              
+              $temp->variables = array("title" => "HaberBox - Kategori Ekle"); 
                $temp->render(function() use($temp){ 
-                       
-                      if($_SESSION['username']){
-                        include "view/hab_ekle.php";  
-                      }else{
-                         header('Location: /login');
-                      }
-                      
-              
-                  });
-          break;
-        case 'kategori':
-            
-            $temp->variables = array("title" => "HaberBox - Kategori Ekle"); 
-             $temp->render(function() use($temp){ 
+                 
+                
+                  include "view/kat_ekle.php";  
+                
+        
+              });
+
+            break;
+          default:
+            $temp->variables = array("title" => "404"); 
+               $temp->render(function() use($temp){  
+                  include "view/404.php";  
                
-              if($_SESSION['username']){
-                include "view/kat_ekle.php";  
-              }else{
-                 header('Location: /login');
-              }
+        
+              });
+            break;
+        }
+
+    }else{
+        header('Location: /login');
+    }
               
-      
-            });
-
-          break;
-        default:
-          $temp->variables = array("title" => "404"); 
-             $temp->render(function() use($temp){  
-                include "view/404.php";  
-             
-      
-            });
-          break;
-      }
-
 
 
 });
@@ -112,33 +107,85 @@ $router->post('/giris', function() use ($pdo){
 });
 
 $router->post('/ekle/:komut',function($komut) use ($pdo){
-      switch ($komut) {
-        case 'haber':
-          header('Location: / ');
-          break; 
-         case 'kategori':
-          if($_POST['kat_baslik'] || $_POST['kat_aciklama']){
-              $baslik =$_POST['kat_baslik'] ;
-              $aciklama =$_POST['kat_aciklama']; 
-              $query = $pdo->prepare("INSERT INTO kategori(baslik,aciklama) VALUES(?,?) ");
-              $insert = $query->execute(array(
-                   $baslik , $aciklama
-              ));
-              if($insert){
-                header('Location: /kategoriler ');
-              }else{
-                header('Location: /ekle/kategori');    
-              }
+      if($_SESSION['username']){
+        switch ($komut) {
+          case 'haber':
+            if($_POST['tag'] || $_FILES['cover'] || $_POST['baslik'] || $_POST['content'] || $_POST['kat']){
+                  
+                  // Tag variables
+                  $tag_content=$_POST['tag'];
 
-          }else{
-            header('Location: /ekle/kategori ');
-          }
-          
-          break; 
-        default:
-          header('Location: / ');
-          break;
-      }
+
+                  $tag_query = $pdo->prepare("INSERT INTO tag(content) VALUES(?) ");
+
+                  $tag_query->execute(array($tag_content)); 
+                  $tag_last_id = $pdo->lastInsertId();
+
+                  // File variables
+
+                  $cover_name ='cover_'.mt_rand(10,10000);
+                  $cover_dir =upload_dir.$cover_name.'.'.split('[/.-]', $_FILES['cover']['type'])[1];
+                  $cover_desc="Bu Dosya ".$_SESSION['username']." tarafından eklendi ";
+
+                  copy($_FILES['cover']['tmp_name'],$cover_dir);
+
+
+                  $foto_query = $pdo->prepare("INSERT INTO fotograf(foto_name,foto_desc,foto_dizin) VALUES(?,?,?) ");
+
+                  $foto_query->execute(array($cover_name,$cover_desc,$cover_dir)); 
+                  $foto_last_id = $pdo->lastInsertId();
+
+                  // Haber variables
+
+                  $haber_baslik =$_POST['baslik'];
+                  $haber_content =$_POST['content'];
+
+                  $haber_query = $pdo->prepare("INSERT INTO haber(baslik,content,foto_id,tag_id) VALUES(?,?,?,?) ");
+
+                  $haber_query->execute(array($haber_baslik,$haber_content,$foto_last_id,$tag_last_id)); 
+                  $haber_last_id = $pdo->lastInsertId();
+
+                  // Kategori variables
+
+                  $kat_id = $_POST['kat'];
+
+                  $kat_query = $pdo->prepare("INSERT INTO haber_kat(haber_id,kat_id) VALUES(?,?) ");
+
+                  $kat_query->execute(array($haber_last_id,$kat_id)); 
+                  
+
+                  header('Location: /');   
+            }
+
+            break; 
+           case 'kategori':
+            if($_POST['kat_baslik'] || $_POST['kat_aciklama']){
+                $baslik =$_POST['kat_baslik'] ;
+                $aciklama =$_POST['kat_aciklama']; 
+                $query = $pdo->prepare("INSERT INTO kategori(baslik,aciklama) VALUES(?,?) ");
+                $insert = $query->execute(array(
+                     $baslik , $aciklama
+                ));
+                if($insert){
+                  header('Location: /kategoriler ');
+                }else{
+                  header('Location: /ekle/kategori');    
+                }
+
+            }else{
+              header('Location: /ekle/kategori ');
+            }
+            
+            break; 
+          default:
+            header('Location: / ');
+            break;
+        }
+
+    }else{
+        header('Location: /login');
+    }
+       
 });
 
 $router->get('/logout', function(){ 
@@ -146,31 +193,22 @@ $router->get('/logout', function(){
     header('Location: / ');
 });
 
-$router->notFound('/hata', function(){ 
-    echo "hata";
+$router->notFound('/hata', function() use ($temp){ 
+    $temp->variables = array("title" => "404"); 
+               $temp->render(function() use($temp){  
+                  include "view/404.php";  
+               
+        
+              });
 });
 
 
-$router->post('/bla/bla', function(){ 
-    print_r($_POST);
+$router->get('/bla/:id', function($id){ 
+    print_r($id);
 });
+
 
  
 
-//$foxy->Route("/haber/ekle", function() use ($foxy,$temp){
-//
-//     if($foxy->Files('bla')){
-//     	copy($foxy->Files('bla')['tmp_name'],'./public/upload/'.
-//               $foxy->Files('bla')['name']);
-//          echo '<h4>Dosyaniz alindi.</h4> Alinan dosya bilgileri <br/>Isim:'.
-//               $foxy->Files('bla')['name'].'<br/>';
-//          echo 'Boyut: '.($foxy->Files('bla')['size']/1024).' KB<br>';
-//          echo 'Türü : '.$foxy->Files('bla')['type'].'<hr>';
-//     }
-//});
-//
-// 
-//
-//
 $router->match();
 ?>

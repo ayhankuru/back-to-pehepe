@@ -1,6 +1,6 @@
 <?php
 
-$dsn = 'mysql:host='.host.';dbname='.dbname; 
+$dsn = 'mysql:host='.host.';dbname='.dbname.';charset=utf8'; 
 $pdo;
  
 try {
