@@ -40,8 +40,8 @@
                   <li class="list-group-item"> 
 
                     <?php if(isset($_SESSION['username'])){ ?>
-                    <span class="badge label-danger"><a href="/kategori/düzenle/<?php  echo $query[$i]['id']; ?>" style="color:#fff;">Düzenle</a></span>
-                    <span class="badge label-danger"><a href="/kategori/sil/<?php  echo $query[$i]['id']; ?>" style="color:#fff;">Sil</a></span>
+                    <span class="badge label-danger"><a href="/kategori/edit/<?php  echo $query[$i]['id']; ?>" style="color:#fff;">Düzenle</a></span>
+                    <span class="badge label-danger"><a href="/kategori/delete/<?php  echo $query[$i]['id']; ?>" style="color:#fff;">Sil</a></span>
                     <?php } ?>
                     <span class="badge"> gdf </span>
                     <?php  echo $query[$i]['baslik']; ?>

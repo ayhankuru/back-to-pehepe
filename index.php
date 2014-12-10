@@ -13,11 +13,20 @@ $temp->uri(uri);
 session_start();
 
 
-$router->get('/', function() use ($temp){ 
+$router->get('/', function() use ($temp,$pdo){ 
     $temp->variables = array("title" => "HaberBox"); 
-    $temp->render(function() use($temp){ 
+    $temp->render(function() use($temp,$pdo){ 
            
           include "view/home.php";
+  
+      });
+});
+
+$router->get('/haber/kat/:kat', function($kat) use ($temp,$pdo){ 
+    $temp->variables = array("title" => "HaberBox"); 
+    $temp->render(function() use($temp,$kat,$pdo){ 
+           
+          echo $kat;
   
       });
 });
@@ -32,8 +41,56 @@ $router->get('/kategoriler', function() use ($temp,$pdo){
       });
 });
 
+
+$router->post('/kategori/edit', function() use ($temp,$pdo){
+    if($_SESSION['username']){ 
+      if($_POST['kat_baslik'] || $_POST['kat_aciklama'] || $_POST['id'] ){ 
+              $baslik =$_POST['kat_baslik'];
+              $aciklama = $_POST['kat_aciklama'];
+              $id =$_POST['id'];
+              $query = $pdo->prepare("UPDATE kategori SET baslik = ? , aciklama = ?  WHERE id = ?");
+              $update = $query->execute(array($baslik,$aciklama,$id));
+              if ( $update ){
+                  header('Location: /kategoriler ');
+              }else{
+                header('Location: / ');
+              }
+
+      }else{
+        header('Location: / ');
+      }
+     }else{
+      header('Location: /login');
+    }
+});
+
+$router->get('/kategori/edit/:id', function($id) use ($temp,$pdo){
+    if($_SESSION['username']){ 
+    $temp->variables = array("title" => "HaberBox - Kategori Düzenle"); 
+    $temp->render(function() use($temp,$pdo,$id){ 
+           
+          include "view/kat_duzenle.php";
+  
+      });
+     }else{
+      header('Location: /login');
+    }
+});
+
+$router->get('/kategori/delete/:id', function($id) use ($temp,$pdo){ 
+    if($_SESSION['username']){
+    $temp->variables = array("title" => "HaberBox - Kategori Sil"); 
+    $temp->render(function() use($temp,$pdo,$id){ 
+           
+          include "view/kat_sil.php";
+  
+      });
+    }else{
+      header('Location: /login');
+    }
+});
  
- 
+
 
 $router->get('/ekle/:komut', function($komut) use ($temp,$pdo){ 
       if($_SESSION['username']){
@@ -202,11 +259,9 @@ $router->notFound('/hata', function() use ($temp){
               });
 });
 
-
-$router->get('/bla/:id', function($id){ 
-    print_r($id);
+ $router->get('/bla/bla/:id', function($id){ 
+    echo $id;
 });
-
 
  
 

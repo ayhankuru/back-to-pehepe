@@ -2,6 +2,12 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
           <a class="navbar-brand" href="#">Haber Box</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
@@ -20,15 +26,31 @@
           </div>
 
           <div class="col-lg-2">
-            <select class="form-control">
-            <option>Hepsi</option>
-            <option>Magazin</option>
-            <option>Spor</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-          </div>
+            
 
+           <?php 
+
+               $query = $pdo->query("SELECT * FROM kategori")->fetchAll(PDO::FETCH_ASSOC);
+                   if ( $query || count($query) > 1 ){
+                   ?>
+                   <select class="form-control" id="kat">
+                   <option> Hepsi </option>
+                   <?php
+                     for ($i=0; $i < count($query) ; $i++) { 
+                   ?>
+                   <option value="<?php  echo $query[$i]['id']; ?>"><?php  echo $query[$i]['baslik']; ?></option>
+                  <?php  }  ?>                           
+                    </select> 
+               <?php } ?>
+          </div>
+        <script type="text/javascript">
+        $(function(){
+            $( "#kat" ).change(function() {
+              var value =$( "select option:selected" ).val();
+              if(value !=="Hepsi") window.location.href =window.location.href+'haber/kat/'+value;
+            });
+        });
+        </script>
         </div> 
       </div>
       

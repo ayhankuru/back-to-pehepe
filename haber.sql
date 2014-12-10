@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 10 Ara 2014, 01:46:24
+-- Üretim Zamanı: 10 Ara 2014, 03:09:42
 -- Sunucu sürümü: 5.6.17
 -- PHP Sürümü: 5.5.12
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `fotograf` (
   `foto_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
   `foto_desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
   `foto_dizin` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `haber` (
   `content` varchar(2000) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
   `foto_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL,
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `kategori` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `baslik` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
   `aciklama` varchar(1000) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `kategori` (
 CREATE TABLE IF NOT EXISTS `tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` varchar(100) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
   `password` varchar(1000) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
