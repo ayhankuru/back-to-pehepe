@@ -22,8 +22,7 @@ define("upload_dir", './public/upload/');
 
 [Demo Görüntülemek İçin](https://pehepe-cobaimelan-1.c9.io/)
 
-### Yapılacaklar 
-- Xss Engelleme
+### Yapılacaklar
 - Kategoriye Haber Listeleme
 - Haber Düzenleme && Silme
 - Üyelik Kaydı
