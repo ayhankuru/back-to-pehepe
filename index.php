@@ -22,6 +22,15 @@ $router->get('/', function() use ($temp,$pdo){
       });
 });
 
+$router->get('/haber/show/:id', function($id) use ($temp,$pdo){ 
+    $temp->variables = array("title" => "HaberBox"); 
+    $temp->render(function() use($temp,$id,$pdo){ 
+           
+           include "view/haber_show.php";
+  
+      });
+});
+
 $router->get('/haber/kat/:kat', function($kat) use ($temp,$pdo){ 
     $temp->variables = array("title" => "HaberBox"); 
     $temp->render(function() use($temp,$kat,$pdo){ 
