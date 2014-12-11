@@ -22,7 +22,5 @@ define("upload_dir", './public/upload/');
 
 [Demo Görüntülemek İçin](https://pehepe-cobaimelan-1.c9.io/)
 
-### Yapılacaklar  
-- Üyelik Kaydı
 
 
