@@ -13,7 +13,7 @@
 
            <?php 
 
-               $query = $pdo->query("SELECT * FROM kategori")->fetchAll(PDO::FETCH_ASSOC);
+               $query = $pdo->query("SELECT * FROM kategori Where aktif=0")->fetchAll(PDO::FETCH_ASSOC);
                    if ( $query || count($query) > 1 ){
                    ?>
                    <select class="form-control" id="kat">
@@ -43,7 +43,7 @@
         
         <?php 
 
-        $query = $pdo->query("SELECT haber.*,fotograf.foto_dizin,tag.content tcontent FROM haber INNER JOIN fotograf ON haber.foto_id = fotograf.id INNER JOIN tag ON haber.tag_id = tag.id ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
+        $query = $pdo->query("SELECT haber.*,fotograf.foto_dizin,tag.content tcontent FROM haber INNER JOIN fotograf ON haber.foto_id = fotograf.id INNER JOIN tag ON haber.tag_id = tag.id Where haber.aktif=0 ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
         
           if($query || count($query) > 0 ){
              for ($i=0; $i < count($query) ; $i++) { 

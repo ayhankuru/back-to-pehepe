@@ -22,7 +22,7 @@
                   
 
                   <?php 
-                   $query = $pdo->query("SELECT * FROM kategori")->fetchAll(PDO::FETCH_ASSOC);
+                   $query = $pdo->query("SELECT * FROM kategori Where aktif=0 ")->fetchAll(PDO::FETCH_ASSOC);
                   if ( $query || count($query) > 1 ){
                       for ($i=0; $i < count($query) ; $i++) { 
                      

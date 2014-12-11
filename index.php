@@ -99,7 +99,19 @@ $router->get('/kategori/delete/:id', function($id) use ($temp,$pdo){
     }
 });
  
-
+$router->get('/haber/delete/:id', function($id) use ($temp,$pdo){ 
+    if($_SESSION['username']){
+    $temp->variables = array("title" => "HaberBox - Haber Sil"); 
+    $temp->render(function() use($temp,$pdo,$id){ 
+           
+          include "view/haber_sil.php";
+  
+      });
+    }else{
+      header('Location: /login');
+    }
+});
+ 
 
 $router->get('/ekle/:komut', function($komut) use ($temp,$pdo){ 
       if($_SESSION['username']){

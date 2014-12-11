@@ -47,6 +47,12 @@
 
                       ?>
         </p>
+        <hr>
+         <?php if(isset($_SESSION['username'])){  ?>
+        <a href="/haber/delete/<?php echo $datas['id'] ?>"> <b>Haber'i Sil</b> </a><br>
+        <?php } ?>
+        </div>
+
         <?php
 
         }else{
@@ -56,7 +62,7 @@
       <?php
         }
        ?>
-       </div>
+       
       
       </div>
 
