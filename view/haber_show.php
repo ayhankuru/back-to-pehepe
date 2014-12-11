@@ -49,7 +49,8 @@
         </p>
         <hr>
          <?php if(isset($_SESSION['username'])){  ?>
-        <a href="/haber/delete/<?php echo $datas['id'] ?>"> <b>Haber'i Sil</b> </a><br>
+        <a href="/haber/delete/<?php echo $datas['id'] ?>"> <b>Haber'i Sil</b> </a> | <a href="/haber/edit/<?php echo $datas['id'] ?>"> <b>Haber'i Düzenle</b> </a>
+
         <?php } ?>
         </div>
 

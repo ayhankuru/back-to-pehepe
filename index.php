@@ -111,7 +111,52 @@ $router->get('/haber/delete/:id', function($id) use ($temp,$pdo){
       header('Location: /login');
     }
 });
+
+$router->get('/haber/edit/:id', function($id) use ($temp,$pdo){ 
+    if($_SESSION['username']){
+    $temp->variables = array("title" => "HaberBox - Haber Düzenle"); 
+    $temp->render(function() use($temp,$pdo,$id){ 
+           
+          include "view/haber_duzenle.php";
+  
+      });
+    }else{
+      header('Location: /login');
+    }
+});
  
+$router->post('/haber/edit', function() use ($temp,$pdo){
+    if($_SESSION['username']){ 
+      if($_POST['baslik'] || $_POST['content'] || $_POST['id'] || $_POST['kat'] || $_POST['tagid'] || $_POST['tag']){ 
+              $baslik =htmlspecialchars($_POST['baslik']);
+              $content = htmlspecialchars($_POST['content']);
+              $id =htmlspecialchars($_POST['id']);
+              $katid=htmlspecialchars($_POST['kat']);
+              $tid=htmlspecialchars($_POST['tagid']);
+              $tag=htmlspecialchars($_POST['tag']);
+              
+              $query = $pdo->prepare("UPDATE haber SET baslik = ? , content = ?  WHERE id = ?");
+              $update = $query->execute(array($baslik,$content,$id));
+
+              $kquery = $pdo->prepare("UPDATE haber_kat SET  kat_id = ?  WHERE id = ?");
+              $kupdate = $kquery->execute(array($katid,$id));
+
+              $tquery = $pdo->prepare("UPDATE tag SET  content = ?  WHERE id = ?");
+              $tupdate = $tquery->execute(array($tag,$tid));
+
+              if ( $update || $tupdate || $kupdate ){
+                  header('Location: / ');
+              }else{
+                header('Location: / ');
+              }
+
+      }else{
+        header('Location: / ');
+      }
+     }else{
+      header('Location: /login');
+    }
+});
 
 $router->get('/ekle/:komut', function($komut) use ($temp,$pdo){ 
       if($_SESSION['username']){
