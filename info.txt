@@ -1,0 +1,15 @@
+Ayhan KURU 
+
+2013015114020
+
+
+Kullanılan araçlar ve kütüphaneler
+
+* Bower Kullanıldı, bootstrap jquery benzeri kütüphaneler onunla eklendi
+* matthisstenius'un yazmış olduğu router kütüphanesi kullanıldı
+* Sql sorguları için Php PDO kullanıldığı 
+* Sql inject'inlara karşı önlemler alındı
+* Ayar dosyasında siteyle ilgili düzenlemeler yapılabilir
+* Kullanılması için template modulü yazıldı - dahada geliştirilebilir
+* Sql dosyası direk olarak kullanılabilir
+* Otomatik olarak belirlenmiş kullanıcı mevcut - admin:1234 - 
