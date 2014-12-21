@@ -14,6 +14,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.1"
+    "bootstrap": "~3.3.1",
+    "todc-bootstrap": "~3.0.2"
   }
 }
