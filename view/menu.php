@@ -22,8 +22,9 @@
             <li><a href="/ekle/haber">Haber Ekle</a></li>
             <li><a href="/ekle/kategori">Kategori Ekle</a></li>
             <li><a href="/logout">Çıkış Yap</a></li>
-            <?php  } ?>
             </ul>
+            <a class="navbar-brand pull-right" href="#"><?php echo $_SESSION['username']; ?></a>
+            <?php  } ?>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
