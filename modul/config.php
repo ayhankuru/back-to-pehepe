@@ -1,8 +1,8 @@
 <?php
-define("uri", "http://localhost");
+define("uri", "http://localhost/haberbox");
 define("host", "localhost");
-define("dbname", 'haber'); 
+define("dbname", 'haberbox'); 
 define("user", 'root'); 
-define("password", ''); 
+define("password", '1234'); 
 define("upload_dir", './public/upload/');
  ?>

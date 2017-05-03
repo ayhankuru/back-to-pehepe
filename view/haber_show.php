@@ -49,7 +49,7 @@
         </p>
         <hr>
          <?php if(isset($_SESSION['username'])){  ?>
-        <a href="/haber/delete/<?php echo $datas['id'] ?>"> <b>Haber'i Sil</b> </a> | <a href="/haber/edit/<?php echo $datas['id'] ?>"> <b>Haber'i Düzenle</b> </a>
+        <a href="<? echo $temp->variables['uri']; ?>/haber/delete/<?php echo $datas['id'] ?>"> <b>Haber'i Sil</b> </a> | <a href="<? echo $temp->variables['uri']; ?>/haber/edit/<?php echo $datas['id'] ?>"> <b>Haber'i Düzenle</b> </a>
 
         <?php } ?>
         </div>

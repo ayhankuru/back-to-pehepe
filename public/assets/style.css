@@ -54,3 +54,8 @@ code {
 .cover{
   width: 100%;
 }
+
+.mdl-layout__drawer-button .material-icons{
+  margin-top: 12px !important;
+}
+

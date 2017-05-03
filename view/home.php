@@ -49,7 +49,7 @@
              for ($i=0; $i < count($query) ; $i++) { 
         ?>
             <div class="col-lg-4"> 
-                    <h3 class="text-center"><a href="/haber/show/<?php  echo $query[$i]['id']; ?>"><?php echo substr($query[$i]['baslik'], 0, 15).'...'; ?></a></h4>
+                    <h3 class="text-center"><a href="<?php echo uri; ?>/haber/show/<?php  echo $query[$i]['id']; ?>"><?php echo substr($query[$i]['baslik'], 0, 15).'...'; ?></a></h4>
                      <img src="<?php echo uri; ?><?php  echo $query[$i]['foto_dizin']; ?>" alt="..." class="img-rounded cover">
                      <p class="lead"><?php  echo substr($query[$i]['content'], 0, 200).'...'; ?></p>
                      <p><?php  

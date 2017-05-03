@@ -27,7 +27,7 @@
         if($datas){
 
         ?>    
-              <form method="POST" action="/haber/edit" enctype="multipart/form-data">
+              <form method="POST" action="<? echo $temp->variables['uri']; ?>/haber/edit" enctype="multipart/form-data">
                   <div class="form-group"> 
                     <input type="text" class="form-control" name="baslik"  value="<?php echo $datas['baslik']; ?>">
                   </div>

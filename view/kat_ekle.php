@@ -15,7 +15,7 @@
        
        <div class="col-xs-10 col-centered">
            
-              <form method="POST" action="/ekle/kategori">
+              <form method="POST" action="<?php echo uri; ?>/ekle/kategori">
                   <div class="form-group"> 
                     <input type="text" class="form-control" name="kat_baslik" placeholder="Kategori Başlığı">
                   </div>

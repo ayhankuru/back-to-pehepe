@@ -19,7 +19,7 @@
                    $data =$query->fetch(PDO::FETCH_ASSOC);
                   if ( $data  ){ 
             ?>
-              <form method="POST" action="/kategori/edit">
+              <form method="POST" action="<?php echo uri; ?>/kategori/edit">
                   <div class="form-group"> 
                     <input type="text" class="form-control" name="kat_baslik" value="<?php echo $data['baslik']; ?>">
                   </div>

@@ -15,7 +15,7 @@
        
        <div class="col-xs-6 col-centered">
            
-              <form method="POST" action="/giris">
+              <form method="POST" action="<?php echo uri; ?>/giris">
               <div class="form-group">
                 <label for="exampleInputEmail1">Kullanıcı Adınız?</label>
                 <input type="text" class="form-control" name="username" placeholder="Kullanıcı Adı">

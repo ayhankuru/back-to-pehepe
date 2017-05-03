@@ -15,7 +15,7 @@
        
        <div class="col-xs-10 col-centered">
            
-              <form method="POST" action="/ekle/haber" enctype="multipart/form-data">
+              <form method="POST" action="<? echo $temp->variables['uri']; ?>/ekle/haber" enctype="multipart/form-data">
                   <div class="form-group"> 
                     <input type="text" class="form-control" name="baslik" placeholder="Haber Başlığı">
                   </div>

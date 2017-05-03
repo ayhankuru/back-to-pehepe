@@ -60,16 +60,16 @@ $router->post('/kategori/edit', function() use ($temp,$pdo){
               $query = $pdo->prepare("UPDATE kategori SET baslik = ? , aciklama = ?  WHERE id = ?");
               $update = $query->execute(array($baslik,$aciklama,$id));
               if ( $update ){
-                  header('Location: /kategoriler ');
+                  header('Location: '.uri.'/kategoriler');
               }else{
-                header('Location: / ');
+                header('Location: '.uri.' ');
               }
 
       }else{
-        header('Location: / ');
+        header('Location: '.uri.' ');
       }
      }else{
-      header('Location: /login');
+      header('Location: '.uri.'/login');
     }
 });
 
@@ -82,7 +82,7 @@ $router->get('/kategori/edit/:id', function($id) use ($temp,$pdo){
   
       });
      }else{
-      header('Location: /login');
+      header('Location: '.uri.'/login');
     }
 });
 
@@ -95,7 +95,7 @@ $router->get('/kategori/delete/:id', function($id) use ($temp,$pdo){
   
       });
     }else{
-      header('Location: /login');
+      header('Location: '.uri.'/login');
     }
 });
  
@@ -108,7 +108,7 @@ $router->get('/haber/delete/:id', function($id) use ($temp,$pdo){
   
       });
     }else{
-      header('Location: /login');
+      header('Location: '.uri.'/login');
     }
 });
 
@@ -121,7 +121,7 @@ $router->get('/haber/edit/:id', function($id) use ($temp,$pdo){
   
       });
     }else{
-      header('Location: /login');
+      header('Location: '.uri.'/login');
     }
 });
  
@@ -145,16 +145,16 @@ $router->post('/haber/edit', function() use ($temp,$pdo){
               $tupdate = $tquery->execute(array($tag,$tid));
 
               if ( $update || $tupdate || $kupdate ){
-                  header('Location: / ');
+                  header('Location: '.uri.' ');
               }else{
-                header('Location: / ');
+                header('Location: '.uri.' ');
               }
 
       }else{
-        header('Location: / ');
+        header('Location: '.uri.' ');
       }
      }else{
-      header('Location: /login');
+      header('Location: '.uri.'/login');
     }
 });
 
@@ -191,7 +191,7 @@ $router->get('/ekle/:komut', function($komut) use ($temp,$pdo){
         }
 
     }else{
-        header('Location: /login');
+        header('Location: '.uri.'/login');
     }
               
 
@@ -219,13 +219,12 @@ $router->post('/giris', function() use ($pdo){
               if($query){
                 $_SESSION['id'] = $query["id"];
                 $_SESSION['username'] = $query["username"];
-                header('Location: / ');
+                header('Location: '.uri.' ');
               }else{
-                header('Location: /login');    
+                header('Location: '.uri.'/login');   
               }
         }else{ 
-            
-            header('Location: /login');
+            header('Location: '.uri.'/login');
         }
 });
 
@@ -277,7 +276,7 @@ $router->post('/ekle/:komut',function($komut) use ($pdo){
                   $kat_query->execute(array($haber_last_id,$kat_id)); 
                   
 
-                  header('Location: /');   
+                  header('Location: '.uri.' ');  
             }
 
             break; 
@@ -290,30 +289,30 @@ $router->post('/ekle/:komut',function($komut) use ($pdo){
                      $baslik , $aciklama
                 ));
                 if($insert){
-                  header('Location: /kategoriler ');
+                  header('Location: '.uri.'/kategoriler');
                 }else{
-                  header('Location: /ekle/kategori');    
+                  header('Location: '.uri.'/ekle/kategori');
                 }
 
             }else{
-              header('Location: /ekle/kategori ');
+              header('Location: '.uri.'/ekle/kategori');
             }
             
             break; 
           default:
-            header('Location: / ');
+            header('Location: '.uri.' ');
             break;
         }
 
     }else{
-        header('Location: /login');
+        header('Location: '.uri.'/login');
     }
        
 });
 
 $router->get('/logout', function(){ 
     session_destroy();
-    header('Location: / ');
+    header('Location: '.uri.' ');
 });
 
 $router->notFound('/hata', function() use ($temp){ 
@@ -325,11 +324,6 @@ $router->notFound('/hata', function() use ($temp){
               });
 });
 
- $router->get('/bla/bla/:id', function($id){ 
-    echo $id;
-});
-
- 
 
 $router->match();
 ?>
